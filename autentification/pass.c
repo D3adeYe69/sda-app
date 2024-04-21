@@ -3,7 +3,7 @@
 
 // Hardcoded credentials (for demonstration purposes only)
 #define USERNAME "user123"
-#define PASSWORD "pass456"
+#define PASSWORD "pass4567"
 
 // Function to remove newline character from a string
 void removeNewline(char *str) {
