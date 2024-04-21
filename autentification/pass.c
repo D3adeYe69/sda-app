@@ -1,47 +1,70 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 
-// Hardcoded credentials (for demonstration purposes only)
-#define USERNAME "user123"
-#define PASSWORD "pass4567"
+// Define structures for loan policies and banks
+typedef struct {
+    char name[50];
+    float (*loanCalculation)(float, int); // Function pointer for loan calculation
+} Bank;
 
-// Function to remove newline character from a string
-void removeNewline(char *str) {
-    char *newlinePos = strchr(str, '\n');
-    if (newlinePos != NULL) {
-        *newlinePos = '\0';
-    }
+// Loan calculation functions for each bank
+float calculateLoanBankA(float price, int months) {
+    // Example loan calculation formula for Bank A
+    float interestRate = 0.05; // 5% interest rate for Bank A
+    return price * (1 + interestRate) / months;
 }
 
-// Function to authenticate user
-int authenticateUser(const char *username, const char *password) {
-    // Check if the provided username and password match the hardcoded credentials
-    if (strcmp(username, USERNAME) == 0 && strcmp(password, PASSWORD) == 0) {
-        return 1; // Authentication successful
-    } else {
-        return 0; // Authentication failed
-    }
+float calculateLoanBankB(float price, int months) {
+    // Example loan calculation formula for Bank B
+    float interestRate = 0.06; // 6% interest rate for Bank B
+    return price * (1 + interestRate) / months;
+}
+
+float calculateLoanBankC(float price, int months) {
+    // Example loan calculation formula for Bank C
+    float interestRate = 0.055; // 5.5% interest rate for Bank C
+    return price * (1 + interestRate) / months;
 }
 
 int main() {
-    char username[50];
-    char password[50];
+    Bank banks[3] = {
+        {"Bank A", calculateLoanBankA},
+        {"Bank B", calculateLoanBankB},
+        {"Bank C", calculateLoanBankC}
+    };
 
-    printf("Enter username: ");
-    fgets(username, sizeof(username), stdin);
-    removeNewline(username); // Remove newline character if present
+    float price;
+    int bankChoice, loanType, loanTermMonths;
+    float totalLoan, monthlyPayment;
 
-    printf("Enter password: ");
-    fgets(password, sizeof(password), stdin);
-    removeNewline(password); // Remove newline character if present
+    printf("Enter the price of the item you want to buy: $");
+    scanf("%f", &price);
 
-    // Authenticate the user
-    if (authenticateUser(username, password)) {
-        printf("Authentication successful. Welcome!\n");
-        // Place your banking operations or further logic here
-    } else {
-        printf("Authentication failed. Invalid username or password.\n");
+    printf("Select a bank to take the loan:\n");
+    for (int i = 0; i < 3; i++) {
+        printf("%d. %s\n", i + 1, banks[i].name);
     }
+    printf("Choice: ");
+    scanf("%d", &bankChoice);
+    bankChoice--; // Adjust for zero-based indexing
+
+    printf("Choose the type of loan:\n");
+    printf("1. Mortgage Loan\n2. Fixed-Rate Loan\nChoice: ");
+    scanf("%d", &loanType);
+    loanType--; // Adjust for zero-based indexing
+
+    printf("Enter the loan term in months: ");
+    scanf("%d", &loanTermMonths);
+
+    // Calculate total loan amount based on bank's loan calculation formula
+    totalLoan = banks[bankChoice].loanCalculation(price, loanTermMonths) * loanTermMonths;
+    monthlyPayment=totalLoan/loanTermMonths;
+
+    // Display loan details
+    printf("\nLoan Details:\n");
+    printf("Total Loan Amount: $%.2f\n", totalLoan);
+    printf("Monthly payment: %.2f",monthlyPayment );
 
     return 0;
 }
