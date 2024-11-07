@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 
 // super change
 //  Define loan calculation function
+=======
+
+
+// Define loan calculation function
+>>>>>>> 26b0354 (super change)
 float calculateLoan(float price, int loanType, int bankChoice, int loanTermMonths)
 {
     float interestRate;
