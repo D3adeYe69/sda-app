@@ -1,8 +1,22 @@
+<<<<<<< HEAD
 #include <stdio.h>
 #include <stdlib.h>
 
 // Define loan calculation function
 float calculateLoan(float price, int loanType, int bankChoice, int loanTermMonths) {
+=======
+<<<<<<< HEAD
+
+// super change
+//  Define loan calculation function
+=======
+
+
+// Define loan calculation function
+>>>>>>> 26b0354 (super change)
+float calculateLoan(float price, int loanType, int bankChoice, int loanTermMonths)
+{
+>>>>>>> e8218bf (git commit --amend --no-edit --date="2024-10-19 20:20:12")
     float interestRate;
     float maxLoanAmount;
     float minLoanAmount;
